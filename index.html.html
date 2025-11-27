@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pecahan Matematika — Febriansyah Pawitno</title>
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX RG Style -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    :root{
+      --primary:#0d6efd;
+      --bg:#f4f8ff;
+      --card:#ffffff;
+      --muted:#4b5b6a;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Poppins',sans-serif;background:var(--bg);color:#12233a}
+
+    /* COVER */
+    #cover{
+      height:100vh;display:flex;align-items:center;justify-content:center;
+      flex-direction:column;background:linear-gradient(135deg,var(--primary),#3a8eff);
+      color:white;text-align:center;padding:24px
+    }
+
+    #cover h1{font-size:3rem;margin-bottom:4px;font-weight:700}
+    #cover h3{font-weight:300;margin-top:0;margin-bottom:20px;opacity:.95}
+
+    .btn-start{
+      background:white;color:var(--primary);border:none;
+      padding:12px 26px;border-radius:12px;font-weight:700;
+      cursor:pointer;font-size:1rem
+    }
+
+    /* WRAP + CARD */
+    .wrap{max-width:980px;margin:28px auto;padding:0 18px 80px}
+    .card{
+      background:var(--card);padding:26px;border-radius:14px;
+      box-shadow:0 6px 24px rgba(0,0,0,.05)
+    }
+
+    /* SLIDES */
+    .slide{display:none}
+    .slide.active{display:block;animation:fadeIn .45s ease}
+    @keyframes fadeIn{0%{opacity:0;transform:translateY(6px)}100%{opacity:1;transform:none}}
+
+    h2{color:var(--primary);margin-top:0}
+    p,li{font-size:17px;line-height:1.65;color:var(--muted)}
+
+    /* DISPLAY MATH */
+    .display-math{
+      background:#f8fbff;padding:12px 14px;border-radius:10px;
+      border-left:4px solid rgba(13,110,253,0.25);margin:14px 0
+    }
+    .katex{font-size:1.2rem;font-weight:600}
+
+    /* INTERACTIVE FRACTION */
+    .fraction-controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .fraction-controls input{
+      width:90px;padding:8px;border-radius:8px;border:1px solid #d7e1ff;
+      font-size:16px
+    }
+    .fraction-visual{display:flex;gap:20px;align-items:center;margin-top:16px}
+    .pie{
+      width:160px;height:160px;border-radius:50%;
+      background:conic-gradient(#3a8eff 0deg, #3a8eff 0deg, #e6eefc 0deg);
+      display:flex;align-items:center;justify-content:center;
+      font-weight:700;color:var(--primary)
+    }
+
+    /* NAV BUTTONS */
+    .controls{display:flex;justify-content:space-between;margin-top:24px}
+    .btn{
+      background:var(--primary);color:white;border:none;padding:10px 20px;
+      border-radius:10px;font-weight:600;cursor:pointer
+    }
+    .btn.secondary{
+      background:#e9f0ff;color:var(--primary)
+    }
+    .btn:disabled{opacity:.5;cursor:not-allowed}
+
+    @media (max-width:720px){
+      #cover h1{font-size:2.3rem}
+      .pie{width:130px;height:130px}
+    }
+  </style>
+</head>
+<body>
+
+<!-- COVER -->
+<section id="cover">
+  <h1>Pecahan Matematika</h1>
+  <h3>Created by: Febriansyah Pawitno</h3>
+  <button class="btn-start" onclick="startSlides()">Mulai Belajar</button>
+</section>
+
+<!-- SLIDE WRAPPER -->
+<div class="wrap" id="slidesWrap" style="display:none">
+
+  <!-- INTRO INTERAKTIF -->
+  <article class="slide" id="intro">
+    <div class="card">
+      <h2>Pengenalan Pecahan</h2>
+      <p>Pecahan adalah bilangan yang menyatakan bagian dari suatu keseluruhan. Bentuk umum pecahan adalah:</p>
+
+      <div class="display-math">\[ \frac{a}{b},\quad b \neq 0 \]</div>
+
+      <p>Coba ubah pembilang dan penyebut lalu klik <b>Tampilkan</b>.</p>
+
+      <div class="fraction-controls">
+        <label>Pembilang <input type="number" id="numInput" value="3" min="0"></label>
+        <label>Penyebut <input type="number" id="denInput" value="4" min="1"></label>
+        <button class="btn" onclick="renderFraction()">Tampilkan</button>
+        <button class="btn secondary" onclick="resetFraction()">Reset</button>
+      </div>
+
+      <div class="fraction-visual">
+        <div id="pie" class="pie">3/4</div>
+        <div id="fracRender" style="min-width:120px"></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- MATERI -->
+  <article class="slide" id="materi-jenis">
+    <div class="card">
+      <h2>Jenis-Jenis Pecahan</h2>
+      <ol>
+        <li><b>Pecahan Biasa</b> — \( \frac{a}{b} \)</li>
+        <li><b>Pecahan Campuran</b> — contoh: \( 2\dfrac{1}{3} \)</li>
+        <li><b>Pecahan Desimal</b> — contoh: 0.25</li>
+        <li><b>Pecahan Persen</b> — contoh: 25% = 0.25</li>
+      </ol>
+    </div>
+  </article>
+
+  <article class="slide" id="materi-samadengan">
+    <div class="card">
+      <h2>Menyamakan Penyebut</h2>
+      <div class="display-math">
+        \[
+        \frac{1}{4} + \frac{1}{6}
+        = \frac{3}{12} + \frac{2}{12}
+        = \frac{5}{12}
+        \]
+      </div>
+    </div>
+  </article>
+
+  <article class="slide" id="materi-jumlah">
+    <div class="card">
+      <h2>Penjumlahan Pecahan</h2>
+      <div class="display-math">\[ \frac{2}{7} + \frac{3}{7} = \frac{5}{7} \]</div>
+      <div class="display-math">\[ \frac{1}{4} + \frac{1}{6} = \frac{5}{12} \]</div>
+    </div>
+  </article>
+
+  <article class="slide" id="materi-kurang">
+    <div class="card">
+      <h2>Pengurangan Pecahan</h2>
+      <div class="display-math">\[ \frac{5}{9} - \frac{2}{9} = \frac{1}{3} \]</div>
+    </div>
+  </article>
+
+  <article class="slide" id="materi-kali">
+    <div class="card">
+      <h2>Perkalian Pecahan</h2>
+      <div class="display-math">\[ \frac{2}{3} \times \frac{3}{5} = \frac{2}{5} \]</div>
+    </div>
+  </article>
+
+  <article class="slide" id="materi-bagi">
+    <div class="card">
+      <h2>Pembagian Pecahan</h2>
+      <div class="display-math">\[ \frac{3}{4} \div \frac{2}{5} = \frac{15}{8} \]</div>
+    </div>
+  </article>
+
+  <!-- Soal Kontekstual -->
+  <article class="slide" id="soal-kontekstual">
+    <div class="card">
+      <h2>Soal Kontekstual</h2>
+      <p>Ani memiliki kue yang dipotong menjadi 12 bagian. Ia memakan 3 bagian.</p>
+      <div class="display-math">\[ \frac{3}{12} = \frac{1}{4} \]</div>
+      <p>Jadi Ani memakan <b>seperempat</b> bagian kue.</p>
+    </div>
+  </article>
+
+  <!-- Contoh & Latihan -->
+  <article class="slide" id="contoh">
+    <div class="card">
+      <h2>Contoh Soal</h2>
+      <ol>
+        <li>\( \frac{1}{3} + \frac{1}{6} = \frac{1}{2} \)</li>
+        <li>\( \frac{4}{5} \times \frac{2}{3} = \frac{8}{15} \)</li>
+      </ol>
+    </div>
+  </article>
+
+  <article class="slide" id="latihan">
+    <div class="card">
+      <h2>Latihan Mandiri</h2>
+      <ol>
+        <li>Carilah pecahan senilai dari \( \frac{2}{5} \).</li>
+        <li>Sederhanakan: \( \frac{18}{24} = \frac{3}{4} \).</li>
+        <li>Hitung: \( \frac{1}{2} + \frac{3}{4} = 1\dfrac{1}{4} \).</li>
+        <li>Ubah ke pecahan biasa: \( 2\dfrac{1}{3} = \frac{7}{3} \).</li>
+      </ol>
+    </div>
+  </article>
+
+  <!-- NAV -->
+  <div class="controls">
+    <button id="prevBtn" class="btn secondary" onclick="prev()">Sebelumnya</button>
+    <div>
+      <button id="nextBtn" class="btn" onclick="next()">Selanjutnya</button>
+      <button class="btn secondary" onclick="restart()">Ulangi</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // SLIDES LIST
+  const SLIDES = [
+    'intro','materi-jenis','materi-samadengan','materi-jumlah',
+    'materi-kurang','materi-kali','materi-bagi',
+    'soal-kontekstual','contoh','latihan'
+  ];
+  let idx = 0;
+
+  // START
+  function startSlides(){
+    document.getElementById('cover').style.display='none';
+    document.getElementById('slidesWrap').style.display='block';
+    idx = 0;
+    showCurrent();
+  }
+
+  // SHOW SLIDE
+  function showCurrent(){
+    document.querySelectorAll('.slide').forEach(e => e.classList.remove('active'));
+    const el = document.getElementById(SLIDES[idx]);
+    el.classList.add('active');
+
+    document.getElementById('prevBtn').disabled = (idx === 0);
+
+    // Re-render KaTeX
+    renderMathInElement(el,{
+      delimiters:[
+        {left:"\\(", right:"\\)", display:false},
+        {left:"\\[", right:"\\]", display:true}
+      ],
+      throwOnError:false
+    });
+
+    window.scrollTo(0,0);
+  }
+
+  function next(){
+    if(idx < SLIDES.length-1){ idx++; showCurrent(); }
+    else alert("Anda telah menyelesaikan seluruh materi!");
+  }
+
+  function prev(){
+    if(idx > 0){ idx--; showCurrent(); }
+  }
+
+  function restart(){
+    document.getElementById('slidesWrap').style.display='none';
+    document.getElementById('cover').style.display='flex';
+    idx = 0;
+  }
+
+  // INTERAKTIF FRACTION
+  function renderFraction(){
+    const n = parseInt(document.getElementById('numInput').value)||0;
+    const d = parseInt(document.getElementById('denInput').value)||1;
+
+    const pie = document.getElementById('pie');
+    const frac = document.getElementById('fracRender');
+
+    const deg = (n/d)*360;
+    pie.style.background = `conic-gradient(#3a8eff 0deg, #3a8eff ${deg}deg, #e6eefc ${deg}deg)`;
+    pie.textContent = `${n}/${d}`;
+
+    frac.innerHTML = katex.renderToString(`\\frac{${n}}{${d}}`);
+  }
+
+  function resetFraction(){
+    document.getElementById('numInput').value = 3;
+    document.getElementById('denInput').value = 4;
+    renderFraction();
+  }
+
+  window.addEventListener('DOMContentLoaded', renderFraction);
+</script>
+
+</body>
+</html>

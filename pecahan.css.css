@@ -1,0 +1,127 @@
+/* ---------------------------------------------------
+    STYLE MIRIP RUANGGURU UI
+-----------------------------------------------------*/
+
+/* FONT GLOBAL */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background: #f5f7fb;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* WRAPPER KONTEN UTAMA */
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+/* JUDUL */
+h1, h2, h3 {
+    font-weight: 600;
+    color: #2d3e50;
+}
+
+/* CARD MATERI (seperti ruangguru) */
+.card {
+    background: #ffffff;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border-left: 6px solid #4C8BF5;
+}
+
+/* SUBTITLE */
+.subtitle {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #4C8BF5;
+    margin-bottom: 10px;
+}
+
+/* PARAGRAF */
+p {
+    font-size: 1rem;
+    margin-bottom: 12px;
+}
+
+/* LIST */
+ul {
+    margin: 10px 0 20px 20px;
+}
+
+ul li {
+    margin-bottom: 8px;
+}
+
+/* PENGGUNAAN EQUATION (MathJax) */
+.math {
+    background: #eef3ff;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    margin: 15px 0;
+    border-left: 4px solid #4C8BF5;
+    overflow-x: auto;
+}
+
+/* TABEL (SINTAKS TAKE AND GIVE) */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 14px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+table th {
+    background: #4C8BF5;
+    color: white;
+    padding: 12px;
+    font-weight: 600;
+}
+
+table td {
+    padding: 12px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+table tr:hover {
+    background: #f0f5ff;
+}
+
+/* BUTTON / NAVIGASI */
+.button {
+    display: inline-block;
+    background: #4C8BF5;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.button:hover {
+    background: #3a73d9;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    table td, table th {
+        padding: 10px;
+    }
+}
